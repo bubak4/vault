@@ -9,5 +9,9 @@ dist/
 # Mac
 .DS_Store
 
+# PyCharm
+.idea/
+
 # Misc
 tests/
+var/

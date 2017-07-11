@@ -1,4 +1,3 @@
-
 import sys, json
 
 """
@@ -17,13 +16,13 @@ import sys, json
     first and submit a merge request!
 """
 
+
 class ImportExport:
+    vault = None  # Vault instance
+    fileFormat = None  # File format (default: 'json')
+    path = None  # Import or export path
 
-    vault = None # Vault instance
-    fileFormat = None # File format (default: 'json')
-    path = None # Import or export path
-
-    def __init__(self, vault, path, fileFormat = 'json'):
+    def __init__(self, vault, path, fileFormat='json'):
         self.vault = vault
         self.path = path
         self.fileFormat = fileFormat
@@ -76,8 +75,8 @@ class ImportExport:
         for i, item in enumerate(items):
             # Throw an error if the category is invalid
             if item['category'] and not self.vault.categoryCheckId(item['category']):
-                print ("Category `%s` for item `%s`/`%s` is invalid" % (item['category'], item['name'], item['login']))
-                print ("Please correct this error before proceeding.")
+                print("Category `%s` for item `%s`/`%s` is invalid" % (item['category'], item['name'], item['login']))
+                print("Please correct this error before proceeding.")
                 sys.exit()
 
             # Add to import list
@@ -95,7 +94,7 @@ class ImportExport:
             # Show results table
             from tabulate import tabulate
             print()
-            print (tabulate(results, headers=['Item', 'Category', 'Name / URL', 'Login']))
+            print(tabulate(results, headers=['Item', 'Category', 'Name / URL', 'Login']))
 
             # Request confirmation
             print()
@@ -103,10 +102,11 @@ class ImportExport:
                 # Loop thru items
                 for item in items:
                     # Import item
-                    self.vault.addItem(str(item['category']), item['name'], item['login'], item['password'], item['notes']);
+                    self.vault.addItem(str(item['category']), item['name'], item['login'], item['password'],
+                                       item['notes']);
 
                     # Confirmation message
-                    print ("* Item `%s`/`%s` has been imported" % (item['name'], item['login']))
+                    print("* Item `%s`/`%s` has been imported" % (item['name'], item['login']))
         else:
             print("No items where found in the import file.");
 
@@ -192,14 +192,14 @@ class ImportExport:
 
         sys.exit()
 
-    def readFile(self, mode = 'r'):
+    def readFile(self, mode='r'):
         """
             Read an import file and return its content
         """
 
         # Read import file
         try:
-            file = open(self.path, mode = mode)
+            file = open(self.path, mode=mode)
             fileContent = file.read()
             file.close()
 
@@ -209,7 +209,7 @@ class ImportExport:
             print(e)
             sys.exit()
 
-    def saveFile(self, content, mode = 'w'):
+    def saveFile(self, content, mode='w'):
         """
             Save exported items to a file
         """
@@ -230,7 +230,7 @@ class ImportExport:
             Ask user to unlock the vault
         """
 
-        self.vault.unlock(False) # `False` = don't load menu after unlocking
+        self.vault.unlock(False)  # `False` = don't load menu after unlocking
 
     def checkEmptyVault(self):
         """
