@@ -40,14 +40,14 @@ python3 setup.py install
 vault
 ```
 
-### Setting up development environment
+### Setting up development environment (Unix-like OS)
 
 ```bash
 # clone project
 git clone https://github.com/gabfl/vault && cd vault
 
 # create virtual environment
-target=./var/env # suggested directory, choose anything to your liking
+target=./var/env && mkdir -p $target # suggested directory, choose anything to your liking
 python3 -m venv $target # make sure you use Python 3
 cd $target
 . bin/activate
@@ -55,7 +55,7 @@ pip install wheel pylint pep8 nose ipython
 pip install -e .
 
 # run the program
-python -m vault
+python -m src
 ```
 
 ## Advanced settings:
