@@ -1,4 +1,9 @@
-import getpass, json, base64, time, sys, os
+import getpass
+import json
+import base64
+import time
+import sys
+import os
 
 from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
@@ -7,14 +12,15 @@ from passwordgenerator import pwgenerator
 
 
 class Vault:
+
     config = None  # Will hold user configuration
     vaultPath = None  # Vault file location
     vault = None  # Vault content once decrypted
     timer = None  # Set a timer to autolock the vault
 
     def __init__(self, config, vaultPath):
-        self.config = config;
-        self.vaultPath = vaultPath;
+        self.config = config
+        self.vaultPath = vaultPath
 
     def setup(self):
         """
@@ -23,7 +29,7 @@ class Vault:
 
         global masterKey
 
-        print('Welcome to Vault. Please choose a secure secret key.');
+        print('Welcome to Vault. Please choose a secure secret key.')
         print()
         try:
             masterKey = getpass.getpass(self.lockPrefix() + 'Please choose a master key:');
@@ -35,10 +41,10 @@ class Vault:
 
         if len(masterKey) < 8:
             print()
-            print('The master key should be at least 8 characters. Please try again!');
+            print('The master key should be at least 8 characters. Please try again!')
             print()
             # Try again
-            self.setup();
+            self.setup()
         elif masterKey == masterKeyRepeat:
             # Create empty vault
             self.vault = {}
@@ -50,10 +56,10 @@ class Vault:
             self.unlock()
         else:
             print()
-            print('The master key does not match its confirmation. Please try again!');
+            print('The master key does not match its confirmation. Please try again!')
             print()
             # Try again
-            self.setup();
+            self.setup()
 
     def setAutoLockTimer(func):
         """
@@ -127,12 +133,12 @@ class Vault:
         except Exception as e:
             if tentative >= 3:
                 # Stop trying after 3 attempts
-                print('Vault cannot be opened.');
+                print('Vault cannot be opened.')
                 print()
                 sys.exit()
             else:
                 # Try again
-                print('Master key is incorrect. Please try again!');
+                print('Master key is incorrect. Please try again!')
                 self.unlock(showMenu, tentative + 1)
 
         if showMenu:
@@ -150,7 +156,7 @@ class Vault:
         """
 
         cipher = AES.new(self.getHash(masterKey), AES.MODE_EAX)
-        data = str.encode(json.dumps(self.vault));
+        data = str.encode(json.dumps(self.vault))
         ciphertext, tag = cipher.encrypt_and_digest(data)
 
         f = open(self.vaultPath, "wb")
@@ -343,7 +349,7 @@ class Vault:
             self.itemMenu(int(id), item)
         except Exception as e:
             print(e)
-            print('Item does not exist.');
+            print('Item does not exist.')
 
         self.menu()
 
@@ -494,7 +500,7 @@ class Vault:
         # Save the vault
         self.saveVault()
 
-        print('The item has been updated.');
+        print('The item has been updated.')
 
         # Back to Vault menu
         self.menu()
@@ -519,7 +525,7 @@ class Vault:
                 # Save the vault
                 self.saveVault()
         except Exception as e:
-            print('Item does not exist.');
+            print('Item does not exist.')
 
         self.menu()
 
@@ -545,9 +551,9 @@ class Vault:
             for i, item in enumerate(self.vault['secrets']):
                 # Search in name, login and notes
                 if search.upper() in item['name'].upper() or \
-                                search.upper() in item['login'].upper() or \
-                                search.upper() in item['notes'].upper() or \
-                                search.upper() in self.categoryName(item['category']).upper():
+                        search.upper() in item['login'].upper() or \
+                        search.upper() in item['notes'].upper() or \
+                        search.upper() in self.categoryName(item['category']).upper():
                     # Increment search result item number
                     searchResultItemNumber += 1
 
@@ -561,7 +567,7 @@ class Vault:
                         self.categoryName(item['category']),
                         item['name'],
                         item['login']
-                    ]);
+                    ])
 
             # If we have search results
             if len(results) > 0:
@@ -618,14 +624,14 @@ class Vault:
                     self.categoryName(item['category']),
                     item['name'],
                     item['login']
-                ]);
+                ])
 
             # Show results table
             from tabulate import tabulate
             print()
             print(tabulate(results, headers=['Item', 'Category', 'Name / URL', 'Login']))
         else:
-            print("There are no secrets saved yet.");
+            print("There are no secrets saved yet.")
 
         self.menu()
 
@@ -709,7 +715,7 @@ class Vault:
                     results.append([
                         i,
                         item['name']
-                    ]);
+                    ])
 
             # If we have active categories
             if len(results) > 0:
@@ -721,7 +727,7 @@ class Vault:
                 print('There are no categories yet.')
         else:
             print()
-            print("There are no categories yet.");
+            print("There are no categories yet.")
 
     @setAutoLockTimer  # Set auto lock timer
     def categoryAdd(self):
@@ -787,11 +793,11 @@ class Vault:
                         # Save the vault
                         self.saveVault()
 
-                        print('The category has been deleted.');
+                        print('The category has been deleted.')
             else:
-                print('The category cannot be deleted because it is currently used by some secrets.');
+                print('The category cannot be deleted because it is currently used by some secrets.')
         except Exception as e:
-            print('Category does not exist.');
+            print('Category does not exist.')
 
         self.categoriesMenu()
 
@@ -803,8 +809,7 @@ class Vault:
         if self.vault.get('secrets'):
             # Iterate thru the items
             for item in self.vault['secrets']:
-                if categoryId and item[
-                    'category'] == categoryId:  # If the item has a category and it is the category searched
+                if categoryId and item['category'] == categoryId:  # If the item has a category and it is the category searched
                     return True
         else:
             return False
@@ -843,9 +848,9 @@ class Vault:
             # Save the vault
             self.saveVault()
 
-            print('The category has been renamed.');
+            print('The category has been renamed.')
         except Exception as e:
-            print('Category does not exist.');
+            print('Category does not exist.')
 
         self.categoriesMenu()
 
@@ -929,10 +934,10 @@ class Vault:
 
         if len(newMasterKey) < 8:
             print()
-            print('The master key should be at least 8 characters. Please try again!');
+            print('The master key should be at least 8 characters. Please try again!')
             print()
             # Try again
-            self.changeKey();
+            self.changeKey()
         elif newMasterKey == newMasterKeyRepeat:
             # Override master key
             masterKey = newMasterKey
@@ -945,17 +950,17 @@ class Vault:
             self.unlock()
         else:
             print()
-            print('The master key does not match its confirmation. Please try again!');
+            print('The master key does not match its confirmation. Please try again!')
             print()
             # Try again
-            self.changeKey();
+            self.changeKey()
 
     def getVault(self):
         """
             Returns the vault content
         """
 
-        return self.vault;
+        return self.vault
 
     def isUnicodeSupported(self):
         """

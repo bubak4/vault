@@ -12,6 +12,7 @@ def logo():
     print(r"                                 '.__________.'")
 
 
+
 def createFolderIfMissing(folderPath):
     """
         Create the vault and configuration file storage folder if it does not exist
@@ -40,7 +41,8 @@ def assessIntegrity(vaultPath, configPath):
         We are ensuring here that a config file exists if a vault exists.
     """
 
-    import os, sys
+    import os
+    import sys
 
     if not os.path.isfile(configPath) and os.path.isfile(vaultPath):
         print()
@@ -56,7 +58,8 @@ def eraseVault(vaultPath, configPath):
         Will erase the vault and config file after asking user for confirmation
     """
 
-    import os, sys
+    import os
+    import sys
 
     print()
     if confirm(prompt='Do you want to permanently erase your vault? All your data will be lost!', resp=False):

@@ -1,4 +1,5 @@
-import sys, json
+import sys
+import json
 
 """
     Adding import or export formats:
@@ -16,8 +17,8 @@ import sys, json
     first and submit a merge request!
 """
 
-
 class ImportExport:
+
     vault = None  # Vault instance
     fileFormat = None  # File format (default: 'json')
     path = None  # Import or export path
@@ -85,7 +86,7 @@ class ImportExport:
                 self.vault.categoryName(item['category']),
                 item['name'],
                 item['login']
-            ]);
+            ])
 
         # If we have items
         if len(results) > 0:
@@ -102,13 +103,12 @@ class ImportExport:
                 # Loop thru items
                 for item in items:
                     # Import item
-                    self.vault.addItem(str(item['category']), item['name'], item['login'], item['password'],
-                                       item['notes']);
+                    self.vault.addItem(str(item['category']), item['name'], item['login'], item['password'], item['notes'])
 
                     # Confirmation message
                     print("* Item `%s`/`%s` has been imported" % (item['name'], item['login']))
         else:
-            print("No items where found in the import file.");
+            print("No items where found in the import file.")
 
         sys.exit()
 
@@ -205,7 +205,7 @@ class ImportExport:
 
             return fileContent
         except Exception as e:
-            print("The file `%s` could not be opened." % (self.path));
+            print("The file `%s` could not be opened." % (self.path))
             print(e)
             sys.exit()
 
