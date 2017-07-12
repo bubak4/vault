@@ -17,6 +17,7 @@ import json
     first and submit a merge request!
 """
 
+
 class ImportExport:
 
     vault = None  # Vault instance
@@ -164,7 +165,7 @@ class ImportExport:
                 'login': item['login'],
                 'password': item['password'],
                 'notes': item['notes']
-            });
+            })
 
         self.saveFile(json.dumps(output))
 

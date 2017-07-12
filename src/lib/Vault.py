@@ -146,7 +146,7 @@ class Vault:
             self.showSecretCount()
 
             # Print vault content (for debug purpose)
-            # print(json.dumps(self.vault, sort_keys=True, indent=4, separators=(',', ': ')))
+            #print(json.dumps(self.vault, sort_keys=True, indent=4, separators=(',', ': ')))
 
             self.menu()
 
@@ -282,9 +282,7 @@ class Vault:
 
         print()
         try:
-            command = self.input(
-                'Choose a command [(g)et / (s)earch / show (all) / (a)dd / (cat)egories / (l)ock / (q)uit]: ',
-                ['l', 'q'])
+            command = self.input('Choose a command [(g)et / (s)earch / show (all) / (a)dd / (cat)egories / (l)ock / (q)uit]: ', ['l', 'q'])
         except KeyboardInterrupt as e:
             # Back to menu if user cancels
             print()
@@ -313,8 +311,6 @@ class Vault:
         """
             Quickly retrieve an item from the vault with its ID
         """
-
-        from .Misc import confirm
 
         if id is None:  # If the user did not pre-select an item
             print()
@@ -361,8 +357,7 @@ class Vault:
 
         print()
         try:
-            command = self.input(
-                'Choose a command [(c)opy secret to clipboard / show (p)assword / (e)dit / (d)elete / (b)ack to Vault]: ')
+            command = self.input('Choose a command [(c)opy secret to clipboard / show (p)assword / (e)dit / (d)elete / (b)ack to Vault]: ')
         except KeyboardInterrupt as e:
             # Back to menu if user cancels
             print()
@@ -422,8 +417,7 @@ class Vault:
 
         print()
         try:
-            command = self.input(
-                'Choose what you would like to edit [(c)ategory / (n)ame / (l)ogin / (p)assword / n(o)tes / (b)ack to Vault]: ')
+            command = self.input('Choose what you would like to edit [(c)ategory / (n)ame / (l)ogin / (p)assword / n(o)tes / (b)ack to Vault]: ')
         except KeyboardInterrupt as e:
             # Back to menu if user cancels
             print()
@@ -682,8 +676,7 @@ class Vault:
 
         print()
         try:
-            command = self.input(
-                'Choose a command [(a)dd a category / (r)rename a category / (d)elete a category / (b)ack to Vault]: ')
+            command = self.input('Choose a command [(a)dd a category / (r)rename a category / (d)elete a category / (b)ack to Vault]: ')
         except KeyboardInterrupt as e:
             # Back to menu if user cancels
             print()
@@ -821,8 +814,6 @@ class Vault:
         """
             Quickly rename a category from the vault with its ID
         """
-
-        from .Misc import confirm
 
         print()
         try:

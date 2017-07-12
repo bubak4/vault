@@ -12,7 +12,6 @@ def logo():
     print(r"                                 '.__________.'")
 
 
-
 def createFolderIfMissing(folderPath):
     """
         Create the vault and configuration file storage folder if it does not exist
@@ -28,8 +27,7 @@ def createFolderIfMissing(folderPath):
 
         print()
         print('We were unable to create the folder `%s` to store the vault and configuration file.' % (folderPath))
-        print(
-            'Please check the permissions or run `./vault.py --help` to find out how to specify an alternative path for both files.')
+        print('Please check the permissions or run `./vault.py --help` to find out how to specify an alternative path for both files.')
         print()
         sys.exit()
 
