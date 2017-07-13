@@ -14,7 +14,7 @@ running on windows.
 ## Prerequisites
 
 On Linux, if you use your distribution packages of Python, make sure you
-have venv library (part of standard Python library since 3.3), which can be
+have _venv_ library (part of standard Python library since 3.3), which can be
 distributed separately.  For example on Debian:
 
 ```bash
@@ -33,8 +33,7 @@ python3 -m venv $venv             # make sure you use Python 3
 . $venv/bin/activate              # activate the environment
 
 # install necessary packages
-pip install wheel pylint pep8 nose ipython # those one are handy for any
-Python development
+pip install wheel pylint pep8 nose ipython # those are handy for any Python development
 pip install -e .                           # those are vault requirements
 
 # run the program
